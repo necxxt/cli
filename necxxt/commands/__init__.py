@@ -6,49 +6,27 @@ import shutil
 import subprocess
 
 from .build import checkIfModulesAreInstalled, precompileModules, compileModules, compileSources, buildStatic
+from .coverage import checkCoverage
 
 import necxxt.dependencies
-from necxxt.version import __executable__
 
 
 class Command:
-    def __init__(self):
-        self._name = None
+    def help(self):
+        raise NotImplementedError
 
-    def run(self):
-        pass
+    def run(self, *args, **kwargs):
+        raise NotImplementedError
 
     def __str__(self):
         return self._name
 
 
-class HelpCommand(Command):
-    def __init__(self):
-        self._name = "help"
-        self._executable = "necxxt"
-
-    def run(self):
-        print()
-        print("Usage: {} <command>".format(__executable__))
-        print()
-        print("where <command> is one of:")
-        print("    build, help, install")
-        print()
-        # print("Specify configs in the ini-formatted file:")
-        # print("    {}".format(os.path.join(
-        #     pathlib.Path.home(), ".{}rc".format(__executable__))))
-        # print(
-        #     "or on the command line via: {} < command > --key value".format(__executable__))
-        # print("Config info can be viewed via: {} help config".format(__executable__))
-        # print()
-        print("{}@{} {}".format(__executable__, necxxt.__version__, __file__))
-
-
 class BuildCommand(Command):
-    def __init__(self):
-        self._name = "build"
+    def help(self):
+        print("Build a necxxt compatible project")
 
-    def run(self):
+    def run(self, *args, **kwargs):
         if os.path.isdir("build"):
             shutil.rmtree("build")
 
@@ -95,19 +73,27 @@ class BuildCommand(Command):
         buildStatic(order, build_modules)
 
 
-class InstallCommand(Command):
-    def __init__(self):
-        self._name = "install"
+class CheckCoverageCommand(Command):
+    def help(self):
+        print("Check the coverage of a project")
 
-    def run(self):
+    def run(self, *args, **kwargs):
+        checkCoverage()
+
+
+class InstallCommand(Command):
+    def help(self):
+        print("Install the dependencies of a necxxt compatible project")
+
+    def run(self, *args, **kwargs):
         necxxt.dependencies.installDependencies()
 
 
 class RunCommand(Command):
-    def __init__(self):
-        self._name = "run"
+    def help(self):
+        print("Run the executable of a necxxt compatible project")
 
-    def run(self):
+    def run(self, *args, **kwargs):
         lock_path = os.path.join(os.getcwd(), "necxxt-lock.json")
         if not os.path.isfile(lock_path):
             necxxt.utils.logging.error(
