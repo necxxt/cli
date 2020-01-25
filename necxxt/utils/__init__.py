@@ -1,6 +1,8 @@
 import json
 import os
 
+import necxxt.utils.logging
+
 
 def listCompilers():
     compilers = []
@@ -43,7 +45,8 @@ def readModule(dependency=None):
         module_file = os.path.join(os.getcwd(), "necxxt.json")
 
     if not os.path.isfile(module_file):
-        print("ENOENT: no such file or directory, open '{}'".format(module_file))
+        necxxt.utils.logging.error(
+            "ENOENT: no such file or directory, open '{}'".format(module_file))
         exit(1)
 
     module = {}

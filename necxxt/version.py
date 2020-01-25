@@ -1,1 +1,2 @@
-__version__ = "0.1.1"
+__executable__ = "necxxt"
+__version__ = "0.1.2"
