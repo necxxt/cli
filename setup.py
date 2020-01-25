@@ -12,7 +12,7 @@ setuptools.setup(
     version=__version__,
     author="Marius Meisenzahl",
     author_email="mariusmeisenzahl@gmail.com",
-    description="The package manager for next level C++ projects",
+    description="Tooling for next level C++ projects",
     license="MIT",
     long_description=long_description,
     long_description_content_type="text/markdown",
