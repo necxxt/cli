@@ -3,6 +3,7 @@ import json
 import os
 import pathlib
 import shutil
+import subprocess
 
 from .build import checkIfModulesAreInstalled, precompileModules, compileModules, compileSources, buildStatic
 
@@ -100,3 +101,26 @@ class InstallCommand(Command):
 
     def run(self):
         necxxt.dependencies.installDependencies()
+
+
+class RunCommand(Command):
+    def __init__(self):
+        self._name = "run"
+
+    def run(self):
+        lock_path = os.path.join(os.getcwd(), "necxxt-lock.json")
+        if not os.path.isfile(lock_path):
+            necxxt.utils.logging.error(
+                "ENOENT: no such file or directory, open '{}'".format(lock_path))
+            exit(1)
+
+        with open(lock_path, "r") as f:
+            lock = json.load(f)
+
+        exe = os.path.join(os.getcwd(), "build", lock.get("name", ""))
+        if not os.path.isfile(exe):
+            necxxt.utils.logging.error(
+                "ENOENT: no such file or directory, open '{}'".format(exe))
+            exit(1)
+
+        subprocess.call([exe])

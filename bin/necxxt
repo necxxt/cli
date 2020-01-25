@@ -17,6 +17,9 @@ def main(args):
     elif args[0] == "install":
         cmd = necxxt.commands.InstallCommand()
         cmd.run()
+    elif args[0] == "run":
+        cmd = necxxt.commands.RunCommand()
+        cmd.run()
     else:
         cmd = necxxt.commands.HelpCommand()
         cmd.run()
