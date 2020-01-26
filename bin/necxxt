@@ -64,7 +64,7 @@ class ArgumentsRunner():
 
                 i += 1
 
-            self._cmds[cmd].run(_args, _kwargs)
+            self._cmds[cmd].run(*_args, **_kwargs)
 
 
 if __name__ == "__main__":

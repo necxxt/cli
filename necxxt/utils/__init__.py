@@ -37,6 +37,19 @@ def listFiles(d, filters=[], shorten=True):
     return fs
 
 
+def readJson(path):
+    if not os.path.isfile(path):
+        necxxt.utils.logging.error(
+            "ENOENT: no such file or directory, open '{}'".format(path))
+        exit(1)
+
+    content = {}
+    with open(path, "r") as f:
+        content = json.load(f)
+
+    return content
+
+
 def readModule(dependency=None):
     if dependency:
         module_file = os.path.join(
@@ -44,13 +57,4 @@ def readModule(dependency=None):
     else:
         module_file = os.path.join(os.getcwd(), "necxxt.json")
 
-    if not os.path.isfile(module_file):
-        necxxt.utils.logging.error(
-            "ENOENT: no such file or directory, open '{}'".format(module_file))
-        exit(1)
-
-    module = {}
-    with open(module_file, "r") as f:
-        module = json.load(f)
-
-    return module
+    return readJson(module_file)

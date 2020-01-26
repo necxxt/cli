@@ -78,7 +78,15 @@ class CheckCoverageCommand(Command):
         print("Check the coverage of a project")
 
     def run(self, *args, **kwargs):
-        checkCoverage()
+        config = None
+        coverage_info = None
+        for key, value in kwargs.items():
+            if key == "config":
+                config = necxxt.utils.readJson(value)
+            elif key == "coverage-info":
+                coverage_info = value
+
+        checkCoverage(config=config, coverage_info=coverage_info)
 
 
 class InstallCommand(Command):
