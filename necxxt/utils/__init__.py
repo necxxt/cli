@@ -58,3 +58,14 @@ def readModule(dependency=None):
         module_file = os.path.join(os.getcwd(), "necxxt.json")
 
     return readJson(module_file)
+
+
+def writeJson(path, content):
+    with open(path, "w") as f:
+        json.dump(content, f, indent=4)
+        f.write("\n")
+
+
+def writeModule(content):
+    path = os.path.join(os.getcwd(), "necxxt.json")
+    writeJson(path, content)

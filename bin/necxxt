@@ -72,6 +72,7 @@ if __name__ == "__main__":
     runner.add_command("build", necxxt.commands.BuildCommand())
     runner.add_command(
         "check-coverage", necxxt.commands.CheckCoverageCommand())
+    runner.add_command("init", necxxt.commands.InitCommand())
     runner.add_command("install", necxxt.commands.InstallCommand())
     runner.add_command("run", necxxt.commands.RunCommand())
 

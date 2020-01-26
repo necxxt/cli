@@ -7,6 +7,7 @@ import subprocess
 
 from .build import checkIfModulesAreInstalled, precompileModules, compileModules, compileSources, buildStatic
 from .coverage import checkCoverage
+from .init import initialize
 
 import necxxt.dependencies
 
@@ -87,6 +88,14 @@ class CheckCoverageCommand(Command):
                 coverage_info = value
 
         checkCoverage(config=config, coverage_info=coverage_info)
+
+
+class InitCommand(Command):
+    def help(self):
+        print("Initialize a necxxt project")
+
+    def run(self, *args, **kwargs):
+        initialize()
 
 
 class InstallCommand(Command):
